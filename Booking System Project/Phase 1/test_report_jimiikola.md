@@ -4,16 +4,16 @@
 - Name:  Jimi Ikola
 
 **Purpose:**  
-- Describe the purpose of this test (e.g., identify vulnerabilities in registration and authentication flows).
+- Identify vulnerabilities in user registration and authentication.
 
 **Scope:**  
 - Tested components:  
 - Exclusions:  
-- Test approach: Gray-box / Black-box / White-box
+- Test approach: Gray-box
 
 **Test environment & dates:**  
-- Start:  
-- End:  
+- Start:  1.2.2026
+- End:  3.2.2026
 - Test environment details (OS, runtime, DB, browsers):
 
 **Assumptions & constraints:**  
@@ -25,14 +25,14 @@
 
 **Short summary (1-2 sentences):**  
 
-**Overall risk level:** (Low / Medium / High / Critical)
+**Overall risk level:** High
 
 **Top 5 immediate actions:**  
-1.  Absence of Anti-CSRF Tokens
-2.  Content Security Policy (CSP) Header Not Set (3)
-3.  Cross-Domain Misconfiguration
-4.  Format String Error
-5.  Missing Anti-clickjacking Header(3)
+1.  Implement allow list and deny list for input validation in URL and files
+2.  Implement Anti-CSRF tokens
+3.  Set the Content Security Policy header
+4.  Improve error/warning messages
+5.  Set the X-Content-Type-Options header to 'nosniff'
 
 ---
 
@@ -54,32 +54,17 @@
 
 | ID | Severity | Finding | Description | Evidence / Proof |
 |------|-----------|----------|--------------|------------------|
-| F-01 | 🟠 Medium | Absence of Anti-CSRF Tokens | No Anti-CSRF tokens were found in a HTML submission form | Screenshot or sqlmap result * |
-| F-02 | 🟠 Medium | Content Security Policy (CSP) Header Not Set (3) | CSP is an added layer of security that helps to detect and mitigate certain types of attacks | Burp log or response headers * |
-| F-03 | 🟠 Medium | Cross-Domain Misconfiguration | Web browser data loading may be possible, due to a Cross Origin Resource Sharing (CORS) misconfiguration on the web server | Screenshot of registration success * |
-|||Format String Error...|||
-
----
-
-> [!NOTE]
-> Include up to 5 findings total.   
-> Keep each description short and clear.
+| F-01 | 🔴 High | Path Traversal | Attackers could manipulate the URL to execute or reveal contents of files anywhere on the web server |  |
+| F-02 | 🔴 High | SQL Injection | Can input " AND 1=1 --" and " AND 1=2 --" |  |
+| F-03 | 🟠 Medium | Absence of Anti-CSRF Tokens | No Anti-CSRF tokens were found in a HTML submission form |  |
+| F-04 | 🟠 Medium | Content Security Policy (CSP) header not set (3) | Site is vulnerable to Cross Site Scripting (XSS) and data injection attacks |  |
+| F-05 | 🟠 Medium | Missing Anti-clickjacking header (3) | The response does not protect against "ClickJacking" attacks |  |
+| F-06 | 🟡 Low | Application Error Disclosure | Error/warning messages disclose sensitive information |  |
+| F-07 | 🟡 Low | X-Content Type-Options Header Missing (Systemic) | The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff' |  |
 
 ---
 
 # 5️⃣ OWASP ZAP Test Report (Attachment)
 
-**Purpose:**  
-- Attach or link your OWASP ZAP scan results (Markdown format preferred).
-
----
-
-**Instructions:**
-1. Check lecture recordings
-2. Save the report as `zap_report_round1.md` and link it below.
-
----
-> [!NOTE]
-> 📁 **Attach full report:** → `check itslearning` → **Add a link here**
 
 ---
